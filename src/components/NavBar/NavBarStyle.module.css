@@ -1,0 +1,15 @@
+.nav {
+  width: 20%;
+  background-color: grey;
+}
+
+.nav ul {
+  margin: 0%;
+  padding: 0%;
+  background-color: grey;
+  text-align: center;
+}
+
+.item {
+  color: whitesmoke
+}
