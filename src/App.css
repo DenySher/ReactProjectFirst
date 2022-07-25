@@ -7,13 +7,10 @@ li {
   list-style-type: none;
 }
 
-.AppWrapper {
-  display: flex;
-  flex-direction: column;
-  width: 1200px;
-  margin: 0 auto;
+a {
+  cursor: pointer;
 }
 
-.ContenAndNav {
-  display: flex;
+button {
+  cursor: pointer;
 }

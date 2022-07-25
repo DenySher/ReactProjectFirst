@@ -6,11 +6,12 @@ type MwssageType = {
 
 const Post = (props: MwssageType) => {
     return (
-        <div>
-            <div>{props.message}</div>
-            <div>
-                <span>like {props.likesCounts}</span>
+        <div className={style.post}>
+            <div className={style.avaAndMessage}>
+                <img src='https://uprostim.com/wp-content/uploads/2021/02/image020-24.jpg'></img>
+                <div>{props.message}</div>
             </div>
+            <span className={style.like}>like {props.likesCounts}</span>
         </div>
     )
 }
