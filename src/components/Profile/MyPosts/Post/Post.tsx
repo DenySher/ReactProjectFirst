@@ -1,4 +1,5 @@
 import style from './Post.module.css'
+
 type MwssageType = {
     message: string
     likesCounts: number
