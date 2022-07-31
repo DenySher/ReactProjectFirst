@@ -1,3 +1,22 @@
 .wraper {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
     background-color: brown;
+    color: whitesmoke;
 }
+
+.dialogsUsers {
+    padding: 20px;
+}
+
+.dialogsUsers .active{
+    color: goldenrod;
+}
+
+.user {}
+
+.messagesUsers {
+    padding: 20px;
+}
+
+.message {}

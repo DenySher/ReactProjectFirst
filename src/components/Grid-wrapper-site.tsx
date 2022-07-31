@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
-import Dialogs from './Dialogs/Dialogs';
+import { Route } from 'react-router-dom'
 import style from './Grid-wrapper-site.module.css'
+
 import Header from './Header/Header'
 import NavBar from './NavBar/NavBar'
-import Profile from './Profile/Profile';
+import Profile from './Profile/Profile'
+import Dialogs from './Dialogs/Dialogs'
 
 const GridWrapperSite = () => {
     return (
@@ -14,14 +15,12 @@ const GridWrapperSite = () => {
             <div className={style.navBar}>
                 <NavBar />
             </div>
-            <div>
-                <Routes>
-                    <Route path='/Profile' element={<Profile />} />
-                    <Route path='/Dialogs' element={<Dialogs />} />
-                    <Route path='/News' element={''} />
-                    <Route path='/Music' element={''} />
-                    <Route path='/Settings' element={''} />
-                </Routes>
+            <div className={style.content}>
+                <Route path='/Profile' render={() => <Profile />} />
+                <Route path='/Dialogs' render={() => <Dialogs />} />
+                <Route />
+                <Route />
+                <Route />
             </div>
         </div>
     )
