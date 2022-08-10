@@ -1,11 +1,11 @@
 import style from './Post.module.css'
 
-type MwssageType = {
+type MessageType = {
     message: string
     likesCounts: number
 }
 
-const Post = (props: MwssageType) => {
+const Post = (props: MessageType) => {
     return (
         <div className={style.post}>
             <div className={style.avaAndMessage}>

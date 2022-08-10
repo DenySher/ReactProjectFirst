@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 type DialogsUsersPropsType = {
     name: string,
-    id: string
+    id: number
 }
 
 const DialogsUsers = (props: DialogsUsersPropsType) => {

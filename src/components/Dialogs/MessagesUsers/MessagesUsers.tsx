@@ -1,13 +1,14 @@
 
 type MessagesUsersPropsType = {
-    text: string,
+    id: number
+    message: string,
 }
 
 const MessagesUsers = (props: MessagesUsersPropsType) => {
     
     return (
         <>
-            <li>{props.text}</li>
+            <li>{props.message}</li>
         </>
     )
 }
