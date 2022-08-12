@@ -1,12 +1,13 @@
+import { myPostsData } from '../../..' // импортирую данные из index.tsx 
 import style from './MyPosts.module.css'
 import Post from './Post/Post'
 
-
-const myPostsData = [
-    { message:'Hello,  how are you?', likesCounts: 20},
-    { message:'hi, i am fine', likesCounts: 30},
-]
 const MyPosts = () => {
+
+    const myPostsItems = myPostsData.map((e) => {
+        return <Post message={e.message} likesCounts={e.likesCounts} id={e.id} key={e.id} />
+    })
+
     return (
         <div className={style.wrapper}>
             <h3>My posts</h3>
@@ -17,8 +18,7 @@ const MyPosts = () => {
                 <button>Add post</button>
             </div>
             <div>new post</div>
-            <Post message={myPostsData[0].message} likesCounts={myPostsData[0].likesCounts} />
-            <Post message={myPostsData[1].message} likesCounts={myPostsData[1].likesCounts} />
+            {myPostsItems}
         </div>
     )
 }
