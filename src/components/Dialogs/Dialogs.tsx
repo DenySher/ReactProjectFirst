@@ -1,13 +1,19 @@
-import { dialogs, messages } from '../..' // импортирую данные из index.tsx 
+
 import style from './DialogsStyle.module.css'
 import DialogsUsers from './DialogsUsers/DialogsUsers'
 import MessagesUsers from './MessagesUsers/MessagesUsers'
 
-const Dialogs = () => {
+import { StateType } from '../../components/Redux/state'
 
-    const dialogsUsersItems = dialogs.map(e => <DialogsUsers name={e.name} id={e.id} />) //сокращенная запись
+type DataTypeProps = {
+    dialogs: StateType
+}
 
-    const messagesUsersItems = messages.map((e) => {
+const Dialogs = (props: DataTypeProps) => {
+
+    const dialogsUsersItems = props.dialogs.dialogsPage.dialogs.map(e => <DialogsUsers id={e.id} name={e.name} />) //сокращенная запись
+
+    const messagesUsersItems = props.dialogs.dialogsPage.messages.map((e) => {
         return (
         <MessagesUsers message={e.message} id={e.id} key={e.id++}/> // полная запись
         )

@@ -1,10 +1,14 @@
-import { myPostsData } from '../../..' // импортирую данные из index.tsx 
 import style from './MyPosts.module.css'
 import Post from './Post/Post'
+import { StateType } from '../../Redux/state'
 
-const MyPosts = () => {
+type DataTypeProps = {
+    myPosts: StateType
+}
 
-    const myPostsItems = myPostsData.map((e) => {
+const MyPosts = (props: DataTypeProps) => {
+
+    const myPostsItems = props.myPosts.profilePage.myPosts.map((e) => {
         return <Post message={e.message} likesCounts={e.likesCounts} id={e.id} key={e.id} />
     })
 

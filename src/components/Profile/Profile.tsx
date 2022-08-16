@@ -2,11 +2,17 @@ import MyPosts from './MyPosts/MyPosts'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import style from './ProfileStyle.module.css'
 
-const Profile = () => {
+import { StateType } from '../../components/Redux/state'
+
+type DataTypeProps = {
+    profile: StateType
+}
+
+const Profile = (props: DataTypeProps) => {
     return (
         <div className={style.wrapper}>
             <ProfileInfo />
-            <MyPosts />
+            <MyPosts myPosts={props.profile} />
         </div>
     )
 }
