@@ -6,13 +6,16 @@ import { StateType } from '../../components/Redux/state'
 
 type DataTypeProps = {
     profile: StateType
+    addPost:(postMessage: string)=>void
+    changeNewText:(newText: string)=>void
 }
 
 const Profile = (props: DataTypeProps) => {
+    console.log(props.profile)
     return (
         <div className={style.wrapper}>
             <ProfileInfo />
-            <MyPosts myPosts={props.profile} />
+            <MyPosts myPosts={props.profile} addPost={props.addPost} changeNewText={props.changeNewText}/>
         </div>
     )
 }

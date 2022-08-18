@@ -1,6 +1,6 @@
 import './App.css';
 import GridWrapperSite from './components/Grid-wrapper-site';
-import { StateType } from './components/Redux/state';
+import { StateType, addPost, changeNewText } from './components/Redux/state';
 
 type StatePropsType = {
   stateData: StateType
@@ -8,7 +8,7 @@ type StatePropsType = {
 
 function App(props: StatePropsType) {
   return (
-    <GridWrapperSite stateData={props.stateData} />
+    <GridWrapperSite stateData={props.stateData} addPost={addPost} changeNewText={changeNewText}/>
   )
 }
 

@@ -11,7 +11,7 @@ type DataTypeProps = {
 
 const Dialogs = (props: DataTypeProps) => {
 
-    const dialogsUsersItems = props.dialogs.dialogsPage.dialogs.map(e => <DialogsUsers id={e.id} name={e.name} />) //сокращенная запись
+    const dialogsUsersItems = props.dialogs.dialogsPage.dialogs.map(e => <DialogsUsers key={e.id} id={e.id} name={e.name} />) //сокращенная запись
 
     const messagesUsersItems = props.dialogs.dialogsPage.messages.map((e) => {
         return (

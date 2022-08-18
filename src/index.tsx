@@ -1,18 +1,21 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
-import stateData from './components/Redux/state';
+import stateData, { subscribe } from './components/Redux/state';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App stateData={stateData} />
-    </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+let RenderStateTree = () => {
+    ReactDOM.render(
+        <HashRouter>
+            <App stateData={stateData} />
+        </HashRouter>
+        , document.getElementById('root')
+    )
+}
+
+RenderStateTree()
+
+subscribe(RenderStateTree)
 
 
 

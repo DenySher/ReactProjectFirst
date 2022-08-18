@@ -9,6 +9,8 @@ import { StateType } from '../components/Redux/state'
 
 type StatePropsType = {
     stateData: StateType
+    addPost:(postMessage: string)=>void
+    changeNewText:(newText: string)=>void
 }
 
 const GridWrapperSite = (props: StatePropsType) => {
@@ -21,7 +23,7 @@ const GridWrapperSite = (props: StatePropsType) => {
                 <NavBar friends={props.stateData}/>
             </div>
             <div className={style.content}>
-                <Route path='/Profile' render={() => <Profile profile={props.stateData} />} />
+                <Route path='/Profile' render={() => <Profile profile={props.stateData} addPost={props.addPost} changeNewText={props.changeNewText}/>} />
                 <Route path='/Dialogs' render={() => <Dialogs dialogs={props.stateData} />} />
             </div>
          </div>
