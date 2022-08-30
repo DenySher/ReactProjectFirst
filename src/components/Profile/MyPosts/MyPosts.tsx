@@ -1,29 +1,27 @@
 import style from './MyPosts.module.css'
 import Post from './Post/Post'
-import { StateType } from '../../Redux/state'
+import { StoreType } from '../../Redux/state'
 import { ChangeEvent } from 'react'
 
-type DataTypeProps = {
-    myPosts: StateType
-    addPost: (postMessage: string) => void
-    changeNewText: (newText: string) => void
+type StorePropsType = {
+    store: StoreType
 }
 
-const MyPosts = (props: DataTypeProps) => {
+const MyPosts = (props: StorePropsType) => {
 
-    console.log(props.myPosts.profilePage.valueNewPost);
+    console.log(props.store.stateData.profilePage.valueNewPost);
 
-    const myPostsItems = props.myPosts.profilePage.myPosts.map((e) => {
+    const myPostsItems = props.store.stateData.profilePage.myPosts.map((e) => {
         return <Post key={e.id} id={e.id} message={e.message} likesCounts={e.likesCounts} />
     })
 
     const onCliCkHandler = () => {
-        props.addPost(props.myPosts.profilePage.valueNewPost)
-        props.changeNewText('')
+        props.store.addPost(props.store.stateData.profilePage.valueNewPost)
+        props.store.changeNewText('')
     }
 
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewText(e.currentTarget.value)
+        props.store.changeNewText(e.currentTarget.value)
     }
 
     return (
@@ -32,7 +30,7 @@ const MyPosts = (props: DataTypeProps) => {
             <div>
                 <textarea
                     onChange={onChangeText}
-                    value={props.myPosts.profilePage.valueNewPost}
+                    value={props.store.stateData.profilePage.valueNewPost}
                 />
             </div>
             <div className={style.btnAddPost}>

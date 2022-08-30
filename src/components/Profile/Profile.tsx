@@ -2,20 +2,18 @@ import MyPosts from './MyPosts/MyPosts'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import style from './ProfileStyle.module.css'
 
-import { StateType } from '../../components/Redux/state'
+import { StoreType } from '../../components/Redux/state'
 
-type DataTypeProps = {
-    profile: StateType
-    addPost:(postMessage: string)=>void
-    changeNewText:(newText: string)=>void
+type StorePropsType = {
+    store: StoreType
 }
 
-const Profile = (props: DataTypeProps) => {
-    console.log(props.profile)
+const Profile = (props: StorePropsType) => {
+    
     return (
         <div className={style.wrapper}>
             <ProfileInfo />
-            <MyPosts myPosts={props.profile} addPost={props.addPost} changeNewText={props.changeNewText}/>
+            <MyPosts store={props.store} />
         </div>
     )
 }

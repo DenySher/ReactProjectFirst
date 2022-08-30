@@ -1,13 +1,13 @@
 import style from '../Friends/Friends.module.css'
-import { StateType } from '../Redux/state'
+import { StoreType } from '../Redux/state'
 
-type StatePropsType = {
-    friends: StateType
+type StorePropsType = {
+    store: StoreType
 }
 
-const Friends = (props: StatePropsType) => {
+const Friends = (props: StorePropsType) => {
 
-    const siteBarFriendsItems = props.friends.siteBar.friends.map((e) => {
+    const siteBarFriendsItems = props.store.stateData.siteBar.friends.map((e) => {
         return (
             <div className={style.friend} key={e.id}>
                 <div className={style.avatar}></div>

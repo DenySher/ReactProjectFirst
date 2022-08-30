@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
 import Friends from '../Friends/Friends'
 import style from './NavBarStyle.module.css'
-import { StateType } from '../Redux/state'
+import { StoreType } from '../Redux/state'
 
-type StatePropsType = {
-    friends: StateType
+type StorePropsType = {
+    store: StoreType
 }
 
-const NavBar = (props: StatePropsType) => {
+const NavBar = (props: StorePropsType) => {
     return (
         <>
             <nav className={style.nav}>
@@ -19,7 +19,7 @@ const NavBar = (props: StatePropsType) => {
                     <li className={style.item}><Link to='settings'>Settings</Link></li>
                 </ul>
             </nav>
-            <Friends friends={props.friends}/>
+            <Friends store={props.store} />
         </>
 
     )

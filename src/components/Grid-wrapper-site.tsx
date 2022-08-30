@@ -5,28 +5,26 @@ import NavBar from './NavBar/NavBar'
 import Profile from './Profile/Profile'
 import Dialogs from './Dialogs/Dialogs'
 
-import { StateType } from '../components/Redux/state'
+import { StoreType } from '../components/Redux/state'
 
-type StatePropsType = {
-    stateData: StateType
-    addPost:(postMessage: string)=>void
-    changeNewText:(newText: string)=>void
+type StorePropsType = {
+    store: StoreType
 }
 
-const GridWrapperSite = (props: StatePropsType) => {
+const GridWrapperSite = (props: StorePropsType) => {
     return (
         <div className={style.wrapper}>
             <div className={style.header}>
                 <Header />
             </div>
             <div className={style.navBar}>
-                <NavBar friends={props.stateData}/>
+                <NavBar store={props.store} />
             </div>
             <div className={style.content}>
-                <Route path='/Profile' render={() => <Profile profile={props.stateData} addPost={props.addPost} changeNewText={props.changeNewText}/>} />
-                <Route path='/Dialogs' render={() => <Dialogs dialogs={props.stateData} />} />
+                <Route path='/Profile' render={() => <Profile store={props.store} />} />
+                <Route path='/Dialogs' render={() => <Dialogs store={props.store} />} />
             </div>
-         </div>
+        </div>
     )
 }
 
