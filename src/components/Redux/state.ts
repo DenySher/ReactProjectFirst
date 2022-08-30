@@ -30,17 +30,18 @@ type StateTypeMessagesPage = {
     dialogs: DialogsDataTypes[];
     messages: MessagesDataTypes[];
 }
-type StateType = {
+export type StateType = {
     profilePage: StateTypeProfilePage
     dialogsPage: StateTypeMessagesPage
     siteBar: SiteBarFriendsType
 }
 export type StoreType = {
     stateData: StateType
-    onChange: OnChange
+    _onChange: OnChange
     addPost: AddPost
     changeNewText: ChangeNewText
-    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType) => void
+    subscribe:(callback:()=>void)=> void
+    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType,  store: StoreType) => void
 }
 type AddPostActionType = {
     type: 'ADD-POST'
@@ -84,8 +85,27 @@ export let store = {
             ],
         }
     },
-    onChange(store: StoreType) {
-        console.log('bla bla')
+    _onChange() {
+      
+    },
+    addPost(){
+        let newPost: MyPostsDataTypes = {
+            id: 5,
+            message: this.stateData.profilePage.valueNewPost,
+            likesCounts: 0,
+        }
+        this.stateData.profilePage.myPosts.push(newPost)
+        this._onChange()
+    },
+    changeNewText(newText: string){
+        this.stateData.profilePage.valueNewPost = newText
+        this._onChange()
+    },
+    getState(){
+        return this.stateData
+    },
+    subscribe(callback:()=>void){
+        this._onChange = callback
     },
     dispatch(action: AddPostActionType | ChangeNewAddPostActionType, store: StoreType) {
         if (action.type === 'ADD-POST') {
@@ -95,16 +115,13 @@ export let store = {
                 likesCounts: 0,
             }
             this.stateData.profilePage.myPosts.push(newPost)
-            this.onChange(store)
+            this._onChange()
         } else if (action.type === 'CHANGE-NEW-TEXT') {
             this.stateData.profilePage.valueNewPost = action.newText
-            this.onChange(store)
+            this._onChange()
         }
     }
 }
 
-export const subscribe = (callback: (store: StoreType) => void) => {
-    store.onChange = callback
-}
 
 export default store

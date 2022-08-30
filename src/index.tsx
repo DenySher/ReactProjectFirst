@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
-import store, { StoreType, subscribe } from './components/Redux/state';
+import store, { StateType, StoreType } from './components/Redux/state';
 import './index.css';
 
 
-let RenderStateTree = (store: StoreType) => {
+let RenderStateTree = () => {
     ReactDOM.render(
         <HashRouter>
             <App store={store} />
@@ -15,9 +15,9 @@ let RenderStateTree = (store: StoreType) => {
 }
 
 
-RenderStateTree(store)
+RenderStateTree()
 
-subscribe(RenderStateTree)
+store.subscribe(RenderStateTree)
 
 
 
