@@ -1,3 +1,5 @@
+import { type } from "os"
+
 type DialogsDataTypes = {
     id: number,
     name: string,
@@ -24,7 +26,6 @@ type SiteBarFriendsType = {
 type StateTypeProfilePage = {
     myPosts: MyPostsDataTypes[];
     valueNewPost: string
-
 }
 type StateTypeMessagesPage = {
     dialogs: DialogsDataTypes[];
@@ -40,17 +41,15 @@ export type StoreType = {
     _onChange: OnChange
     addPost: AddPost
     changeNewText: ChangeNewText
-    subscribe:(callback:()=>void)=> void
-    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType,  store: StoreType) => void
+    subscribe: (callback: () => void) => void
+    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType) => void
 }
-type AddPostActionType = {
-    type: 'ADD-POST'
-    newPost: string
-}
-type ChangeNewAddPostActionType = {
-    type: 'CHANGE-NEW-TEXT'
-    newText: string
-}
+// type AddPostActionType = {
+//     type: 'ADD-POST'
+//     newPost: string
+// }
+type AddPostActionType = ReturnType<typeof addPostAC>
+type ChangeNewAddPostActionType = ReturnType<typeof changwNewTextAC>
 
 export let store = {
     stateData: {
@@ -86,9 +85,9 @@ export let store = {
         }
     },
     _onChange() {
-      
+
     },
-    addPost(){
+    addPost() {
         let newPost: MyPostsDataTypes = {
             id: 5,
             message: this.stateData.profilePage.valueNewPost,
@@ -97,30 +96,37 @@ export let store = {
         this.stateData.profilePage.myPosts.push(newPost)
         this._onChange()
     },
-    changeNewText(newText: string){
+    changeNewText(newText: string) {
         this.stateData.profilePage.valueNewPost = newText
         this._onChange()
     },
-    getState(){
+    getState() {
         return this.stateData
     },
-    subscribe(callback:()=>void){
+    subscribe(callback: () => void) {
         this._onChange = callback
     },
-    dispatch(action: AddPostActionType | ChangeNewAddPostActionType, store: StoreType) {
+    dispatch(action: AddPostActionType | ChangeNewAddPostActionType) {
         if (action.type === 'ADD-POST') {
-            let newPost: MyPostsDataTypes = {
-                id: 5,
-                message: this.stateData.profilePage.valueNewPost,
-                likesCounts: 0,
-            }
-            this.stateData.profilePage.myPosts.push(newPost)
-            this._onChange()
+            this.addPost()
         } else if (action.type === 'CHANGE-NEW-TEXT') {
-            this.stateData.profilePage.valueNewPost = action.newText
+            this.changeNewText(action.newText)
             this._onChange()
         }
     }
+}
+
+export const addPostAC = (newPost: string) => {
+    return {
+        type: 'ADD-POST',
+        newPost: newPost
+    } as const
+}
+export const changwNewTextAC = (newText: string) => {
+    return {
+        type: 'CHANGE-NEW-TEXT',
+        newText: newText
+    } as const
 }
 
 
