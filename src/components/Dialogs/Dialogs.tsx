@@ -11,7 +11,7 @@ type StorePropsType = {
 
 const Dialogs = (props: StorePropsType) => {
 
-    const dialogsUsersItems = props.store.stateData.dialogsPage.dialogs.map(e => <DialogsUsers key={e.id} id={e.id} name={e.name} />) //сокращенная запись
+    const dialogsUsersItems = props.store.stateData.dialogsPage.dialogs.map(e => <DialogsUsers key={e.id} id={e.id} name={e.name} />)
 
     const messagesUsersItems = props.store.stateData.dialogsPage.messages.map((e) => {
         return (
@@ -20,11 +20,11 @@ const Dialogs = (props: StorePropsType) => {
     })
 
     const changeNewTextmassage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.store.dispatch({ type: 'UPDATE-NEW-MESSAGE-BODY', message: e.currentTarget.value })
+        props.store.dispatch({ type: 'UPDATE-NEW-MESSAGE', message: e.currentTarget.value })
     }
     const addMessageOnClick = () => {
         props.store.dispatch({ type: 'ADD-NEW-TEXT-MESSAGE', message: props.store.stateData.dialogsPage.newMassageText })
-        props.store.changeNewTextmassageBody('')     
+        props.store.stateData.dialogsPage.newMassageText = ''
     }
 
     return (

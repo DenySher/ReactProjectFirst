@@ -1,13 +1,14 @@
+import profileReducer from "./profileReducer"
 
 type DialogsDataTypes = {
     id: number,
     name: string,
 }
-type MessagesDataTypes = {
+export type MessagesDataTypes = {
     id: number,
     message: string,
 }
-type MyPostsDataTypes = {
+export type MyPostsDataTypes = {
     id: number,
     message: string,
     likesCounts: number
@@ -17,14 +18,10 @@ type Friends = {
     name: string,
 }
 type OnChange = (store: StoreType) => void
-type AddPost = (postMessage: string) => void
-type AddMessageDialogs = (messageDialogs: string) => void
-type ChangeNewText = (newText: string) => void
-type changeNewTextmassageBody =(message: string)=>void
 type SiteBarFriendsType = {
     friends: Friends[];
 }
-type StateTypeProfilePage = {
+export type StateTypeProfilePage = {
     myPosts: MyPostsDataTypes[];
     valueNewPost: string
 }
@@ -41,18 +38,15 @@ export type StateType = {
 export type StoreType = {
     stateData: StateType
     _onChange: OnChange
-    addPost: AddPost
-    changeNewText: ChangeNewText
-    addMessage: AddMessageDialogs
-    changeNewTextmassageBody: changeNewTextmassageBody
     subscribe: (callback: () => void) => void
-    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType |ChangeNewTextMassageActionType | AddNewTextMassageActionType) => void
+    dispatch: (action:  ActionAllType) => void
 }
 
 type AddPostActionType = ReturnType<typeof addPostAC> // автоматически типизируем используя creator
 type ChangeNewAddPostActionType = ReturnType<typeof changeNewTextAC>
 type ChangeNewTextMassageActionType = ReturnType<typeof changeNewTextmassageBodyAC>
 type AddNewTextMassageActionType = ReturnType<typeof addNewTextMessageAC>
+export type ActionAllType =  AddPostActionType | ChangeNewAddPostActionType | ChangeNewTextMassageActionType | AddNewTextMassageActionType
 
 export let store = {
     stateData: {
@@ -91,48 +85,37 @@ export let store = {
     _onChange() {
 
     },
-    addPost() {
-        let newPost: MyPostsDataTypes = {
-            id: 5,
-            message: this.stateData.profilePage.valueNewPost,
-            likesCounts: 0,
-        }
-        this.stateData.profilePage.myPosts.push(newPost)
-        this._onChange()
-    },
-    changeNewText(newText: string) {
-        this.stateData.profilePage.valueNewPost = newText
-        this._onChange()
-    },
-    addMessage() {
-        let newMessage: MessagesDataTypes = {
-            id: 5,
-            message: this.stateData.dialogsPage.newMassageText,
-        }
-        this.stateData.dialogsPage.messages.push(newMessage)
-        this._onChange()
-    },
-    changeNewTextmassageBody(message: string) {
-        this.stateData.dialogsPage.newMassageText = message
-        this._onChange()
-    },
     getState() {
         return this.stateData
     },
     subscribe(callback: () => void) {
         this._onChange = callback
     },
-    dispatch(action: AddPostActionType | ChangeNewAddPostActionType |ChangeNewTextMassageActionType | AddNewTextMassageActionType) {
+    dispatch(action: ActionAllType) {
+
+        // this.stateData.profilePage = profileReducer(this.stateData.profilePage, action: 'ADD-POST')
+        // this._onChange()
+
         if (action.type === 'ADD-POST') {
-            this.addPost()
-        } else if (action.type === 'CHANGE-NEW-TEXT') {
-            this.changeNewText(action.newText)
+            let newPost: MyPostsDataTypes = {
+                id: 5,
+                message: this.stateData.profilePage.valueNewPost,
+                likesCounts: 0,
+            }
+            this.stateData.profilePage.myPosts.push(newPost)
             this._onChange()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this.changeNewTextmassageBody(action.message)
+        } else if (action.type === 'CHANGE-NEW-TEXT') {
+            this.stateData.profilePage.valueNewPost = action.newText
+            this._onChange()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this.stateData.dialogsPage.newMassageText = action.message
             this._onChange()
         } else if (action.type === 'ADD-NEW-TEXT-MESSAGE') {
-            this.addMessage()
+            let newMessage: MessagesDataTypes = {
+                id: 5,
+                message: this.stateData.dialogsPage.newMassageText,
+            }
+            this.stateData.dialogsPage.messages.push(newMessage)
             this._onChange()
         }
     }
@@ -152,11 +135,10 @@ export const changeNewTextAC = (newText: string) => {
 }
 export const changeNewTextmassageBodyAC = (message: string) => {
     return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
+        type: 'UPDATE-NEW-MESSAGE',
         message: message
     } as const
 }
-
 export const addNewTextMessageAC = (body: string) => {
     return {
         type: 'ADD-NEW-TEXT-MESSAGE',

@@ -18,11 +18,10 @@ const MyPosts = (props: StorePropsType) => {
 
     const onCliCkHandler = () => {
         props.store.dispatch({ type: 'ADD-POST', newPost: props.store.stateData.profilePage.valueNewPost })
-        props.store.changeNewText('')
+        props.store.stateData.profilePage.valueNewPost = '' //(может через диспатч сделать?)
     }
 
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.store.changeNewText(e.currentTarget.value) вмето этого dispatch
         props.store.dispatch({ type: 'CHANGE-NEW-TEXT', newText: e.currentTarget.value })
     }
 
