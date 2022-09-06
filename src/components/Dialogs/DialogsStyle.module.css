@@ -13,10 +13,10 @@
     color: goldenrod;
 }
 
-.user {}
-
 .messagesUsers {
     padding: 20px;
 }
 
-.message {}
+/* button {
+    max-width: 30px;
+} */

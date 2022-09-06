@@ -1,4 +1,3 @@
-import { type } from "os"
 
 type DialogsDataTypes = {
     id: number,
@@ -19,7 +18,9 @@ type Friends = {
 }
 type OnChange = (store: StoreType) => void
 type AddPost = (postMessage: string) => void
+type AddMessageDialogs = (messageDialogs: string) => void
 type ChangeNewText = (newText: string) => void
+type changeNewTextmassageBody =(message: string)=>void
 type SiteBarFriendsType = {
     friends: Friends[];
 }
@@ -28,6 +29,7 @@ type StateTypeProfilePage = {
     valueNewPost: string
 }
 type StateTypeMessagesPage = {
+    newMassageText: string
     dialogs: DialogsDataTypes[];
     messages: MessagesDataTypes[];
 }
@@ -41,15 +43,16 @@ export type StoreType = {
     _onChange: OnChange
     addPost: AddPost
     changeNewText: ChangeNewText
+    addMessage: AddMessageDialogs
+    changeNewTextmassageBody: changeNewTextmassageBody
     subscribe: (callback: () => void) => void
-    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType) => void
+    dispatch: (action: AddPostActionType | ChangeNewAddPostActionType |ChangeNewTextMassageActionType | AddNewTextMassageActionType) => void
 }
-// type AddPostActionType = {
-//     type: 'ADD-POST'
-//     newPost: string
-// }
-type AddPostActionType = ReturnType<typeof addPostAC>
-type ChangeNewAddPostActionType = ReturnType<typeof changwNewTextAC>
+
+type AddPostActionType = ReturnType<typeof addPostAC> // автоматически типизируем используя creator
+type ChangeNewAddPostActionType = ReturnType<typeof changeNewTextAC>
+type ChangeNewTextMassageActionType = ReturnType<typeof changeNewTextmassageBodyAC>
+type AddNewTextMassageActionType = ReturnType<typeof addNewTextMessageAC>
 
 export let store = {
     stateData: {
@@ -66,7 +69,7 @@ export let store = {
                 { id: 1, message: 'Hello,  how are you?', likesCounts: 20 },
                 { id: 2, message: 'hi, i am fine', likesCounts: 30 },
             ],
-            valueNewPost: 'bla bla'
+            valueNewPost: ''
         },
 
         dialogsPage: {
@@ -82,7 +85,8 @@ export let store = {
                 { id: 3, message: 'I am fine' },
                 { id: 4, message: 'I is okey' },
             ],
-        }
+            newMassageText: ''
+        },
     },
     _onChange() {
 
@@ -100,17 +104,35 @@ export let store = {
         this.stateData.profilePage.valueNewPost = newText
         this._onChange()
     },
+    addMessage() {
+        let newMessage: MessagesDataTypes = {
+            id: 5,
+            message: this.stateData.dialogsPage.newMassageText,
+        }
+        this.stateData.dialogsPage.messages.push(newMessage)
+        this._onChange()
+    },
+    changeNewTextmassageBody(message: string) {
+        this.stateData.dialogsPage.newMassageText = message
+        this._onChange()
+    },
     getState() {
         return this.stateData
     },
     subscribe(callback: () => void) {
         this._onChange = callback
     },
-    dispatch(action: AddPostActionType | ChangeNewAddPostActionType) {
+    dispatch(action: AddPostActionType | ChangeNewAddPostActionType |ChangeNewTextMassageActionType | AddNewTextMassageActionType) {
         if (action.type === 'ADD-POST') {
             this.addPost()
         } else if (action.type === 'CHANGE-NEW-TEXT') {
             this.changeNewText(action.newText)
+            this._onChange()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this.changeNewTextmassageBody(action.message)
+            this._onChange()
+        } else if (action.type === 'ADD-NEW-TEXT-MESSAGE') {
+            this.addMessage()
             this._onChange()
         }
     }
@@ -122,10 +144,23 @@ export const addPostAC = (newPost: string) => {
         newPost: newPost
     } as const
 }
-export const changwNewTextAC = (newText: string) => {
+export const changeNewTextAC = (newText: string) => {
     return {
         type: 'CHANGE-NEW-TEXT',
         newText: newText
+    } as const
+}
+export const changeNewTextmassageBodyAC = (message: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-BODY',
+        message: message
+    } as const
+}
+
+export const addNewTextMessageAC = (body: string) => {
+    return {
+        type: 'ADD-NEW-TEXT-MESSAGE',
+        message: body
     } as const
 }
 

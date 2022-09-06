@@ -2,7 +2,7 @@ import style from './MyPosts.module.css'
 import Post from './Post/Post'
 import { StoreType } from '../../Redux/state'
 import { ChangeEvent } from 'react'
-import { type } from 'os'
+
 
 type StorePropsType = {
     store: StoreType

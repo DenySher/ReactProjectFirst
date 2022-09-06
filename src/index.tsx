@@ -1,15 +1,15 @@
 import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import store, { StateType, StoreType } from './components/Redux/state';
+import store from './components/Redux/state';
 import './index.css';
 
 
 let RenderStateTree = () => {
     ReactDOM.render(
-        <HashRouter>
+        <BrowserRouter>
             <App store={store} />
-        </HashRouter>
+        </BrowserRouter>
         , document.getElementById('root')
     )
 }
