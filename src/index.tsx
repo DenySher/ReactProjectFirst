@@ -22,14 +22,3 @@ store.subscribe(RenderStateTree)
 
 
 
-
-
-
-
-
-
-
-function stateData(stateData: any) {
-    throw new Error('Function not implemented.');
-}
-

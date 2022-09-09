@@ -1,10 +1,10 @@
-import { StateTypeProfilePage } from "./state"
+import { ActionAllType, StateTypeProfilePage } from "./state"
 
 type AddPostActionType = ReturnType<typeof addPostAC>
 type ChangeNewAddPostActionType = ReturnType<typeof changeNewTextAC>
-type PropfileAllType = AddPostActionType | ChangeNewAddPostActionType
+export type ProfileAllType = AddPostActionType | ChangeNewAddPostActionType
 
-const profileReducer = (state: StateTypeProfilePage, action: PropfileAllType) => {
+const profileReducer = (state: StateTypeProfilePage, action:ActionAllType) => {
     switch (action.type) {
         case 'ADD-POST':
             let newPost = {
